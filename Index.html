@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Join Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <form id="appForm">
+    <h2>Join Application Form</h2>
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" required>
+
+    <label for="age">Your Age:</label>
+    <input type="number" id="age" required>
+
+    <label for="reason">Why do you want to join?</label>
+    <textarea id="reason" rows="5" required></textarea>
+
+    <button type="submit">Submit Application</button>
+  </form>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1368643255289249844/ZCBnkOF_SXN_B0iotmm5jnTXf7xDf4brYBeivVegKOqQ4U4e_Tq4nksEH3j23x59DUBv"; // replace this
+
+    document.getElementById("appForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const reason = document.getElementById("reason").value;
+
+      const embed = {
+        title: "New Application Submitted",
+        color: 0x00ff00,
+        fields: [
+          { name: "Name", value: name, inline: true },
+          { name: "Age", value: age, inline: true },
+          { name: "Reason for Joining", value: reason, inline: false }
+        ],
+        timestamp: new Date().toISOString()
+      };
+
+      const payload = {
+        username: "Application Bot",
+        embeds: [embed]
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("✅ Application submitted!");
+          document.getElementById("appForm").reset();
+        } else {
+          alert("❌ Submission failed. Check webhook or console.");
+        }
+      })
+      .catch(err => {
+        console.error("Webhook error:", err);
+        alert("❌ An error occurred.");
+      });
+    });
+  </script>
+</body>
+</html>
