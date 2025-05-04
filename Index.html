@@ -96,6 +96,9 @@
       <label for="rank">Rank</label>
       <input type="text" id="rank" required>
 
+      <label for="discordUsername">Discord Username</label>
+      <input type="text" id="discordUsername" required>
+
       <button type="submit">Submit Application</button>
     </form>
   </div>
@@ -110,6 +113,7 @@
       const winrate = document.getElementById("winrate").value.trim();
       const username = document.getElementById("username").value.trim();
       const rank = document.getElementById("rank").value.trim();
+      const discordUsername = document.getElementById("discordUsername").value.trim();
 
       const embed = {
         title: "📥 New Rivals Application",
@@ -118,7 +122,8 @@
           { name: "Rivals Level", value: rivalsLevel || "N/A", inline: true },
           { name: "Winrate", value: winrate + "%", inline: true },
           { name: "Roblox Username", value: username || "N/A", inline: false },
-          { name: "Rank", value: rank || "N/A", inline: false }
+          { name: "Rank", value: rank || "N/A", inline: false },
+          { name: "Discord Username", value: discordUsername || "N/A", inline: false }
         ],
         timestamp: new Date().toISOString()
       };
