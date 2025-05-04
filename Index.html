@@ -2,31 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Join Application</title>
+  <title>Rivals Application</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      background: #1e1e1e;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
     form {
-      background: white;
+      background: #2a2a2a;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
       width: 100%;
       max-width: 500px;
     }
-    input, textarea {
+    input {
       width: 100%;
       padding: 10px;
       margin-top: 10px;
       margin-bottom: 20px;
-      border: 1px solid #ccc;
+      border: 1px solid #555;
       border-radius: 5px;
+      background: #1e1e1e;
+      color: #fff;
     }
     button {
       background: #4CAF50;
@@ -35,50 +38,60 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      width: 100%;
     }
     button:hover {
       background: #45a049;
+    }
+    label {
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <form id="appForm">
-    <h2>Join Application Form</h2>
-    <label for="name">Your Name:</label>
-    <input type="text" id="name" required>
+    <h2>Rivals Join Application</h2>
 
-    <label for="age">Your Age:</label>
-    <input type="number" id="age" required>
+    <label for="rivalsLevel">Rivals Level:</label>
+    <input type="text" id="rivalsLevel" required>
 
-    <label for="reason">Why do you want to join?</label>
-    <textarea id="reason" rows="5" required></textarea>
+    <label for="winrate">Winrate (%):</label>
+    <input type="text" id="winrate" required>
+
+    <label for="username">Roblox Username:</label>
+    <input type="text" id="username" required>
+
+    <label for="rank">Rank:</label>
+    <input type="text" id="rank" required>
 
     <button type="submit">Submit Application</button>
   </form>
 
   <script>
-    const webhookURL = "https://discord.com/api/webhooks/1368643255289249844/ZCBnkOF_SXN_B0iotmm5jnTXf7xDf4brYBeivVegKOqQ4U4e_Tq4nksEH3j23x59DUBv"; // replace this
+    const webhookURL = "https://discord.com/api/webhooks/1368643255289249844/ZCBnkOF_SXN_B0iotmm5jnTXf7xDf4brYBeivVegKOqQ4U4e_Tq4nksEH3j23x59DUBv"; // Replace with your webhook
 
     document.getElementById("appForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const name = document.getElementById("name").value;
-      const age = document.getElementById("age").value;
-      const reason = document.getElementById("reason").value;
+      const rivalsLevel = document.getElementById("rivalsLevel").value;
+      const winrate = document.getElementById("winrate").value;
+      const username = document.getElementById("username").value;
+      const rank = document.getElementById("rank").value;
 
       const embed = {
-        title: "New Application Submitted",
-        color: 0x00ff00,
+        title: "📝 New Rivals Application",
+        color: 0x3498db,
         fields: [
-          { name: "Name", value: name, inline: true },
-          { name: "Age", value: age, inline: true },
-          { name: "Reason for Joining", value: reason, inline: false }
+          { name: "Rivals Level", value: rivalsLevel, inline: true },
+          { name: "Winrate", value: winrate + "%", inline: true },
+          { name: "Roblox Username", value: username, inline: false },
+          { name: "Rank", value: rank, inline: false }
         ],
         timestamp: new Date().toISOString()
       };
 
       const payload = {
-        username: "Application Bot",
+        username: "Rivals Application Bot",
         embeds: [embed]
       };
 
@@ -92,12 +105,12 @@
           alert("✅ Application submitted!");
           document.getElementById("appForm").reset();
         } else {
-          alert("❌ Submission failed. Check webhook or console.");
+          alert("❌ Failed to submit. Check webhook.");
         }
       })
       .catch(err => {
-        console.error("Webhook error:", err);
-        alert("❌ An error occurred.");
+        console.error("Error:", err);
+        alert("❌ Error sending application.");
       });
     });
   </script>
