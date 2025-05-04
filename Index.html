@@ -124,7 +124,7 @@
       };
 
       const payload = {
-        username: "Rivals Bot",
+        username: "Rivals Application Bot",
         embeds: [embed]
       };
 
@@ -141,8 +141,8 @@
           alert("❌ Failed to send. Please try again later.");
         }
       })
-      .catch(error => {
-        console.error("Error:", error);
+      .catch(err => {
+        console.error("Error:", err);
         alert("❌ Something went wrong.");
       });
     });
