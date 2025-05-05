@@ -83,23 +83,21 @@
 <body>
   <div class="container">
     <h2>Rivals Application</h2>
-    <form name="appForm" netlify id="appForm" action="/thank-you">
-      <input type="hidden" name="form-name" value="appForm">
-
+    <form id="appForm">
       <label for="rivalsLevel">Rivals Level</label>
-      <input type="text" id="rivalsLevel" name="rivalsLevel" required>
+      <input type="text" id="rivalsLevel" required>
 
       <label for="winrate">Winrate (%)</label>
-      <input type="text" id="winrate" name="winrate" required>
+      <input type="text" id="winrate" required>
 
       <label for="username">Roblox Username</label>
-      <input type="text" id="username" name="username" required>
+      <input type="text" id="username" required>
 
       <label for="rank">Rank</label>
-      <input type="text" id="rank" name="rank" required>
+      <input type="text" id="rank" required>
 
       <label for="discordUsername">Discord Username</label>
-      <input type="text" id="discordUsername" name="discordUsername" required>
+      <input type="text" id="discordUsername" required>
 
       <button type="submit">Submit Application</button>
     </form>
@@ -109,7 +107,8 @@
     const webhookURL = "https://discord.com/api/webhooks/1368651816518287420/6xWMtd_XY3sG7rsVs1TrL064C9oLTH14PMuEEFFa0dsj08uOISD98D7fQcqEu-f_wooJ";
 
     document.getElementById("appForm").addEventListener("submit", function(e) {
-      // Don't prevent default so Netlify can handle the form
+      e.preventDefault(); // Stop the form from refreshing the page
+
       const rivalsLevel = document.getElementById("rivalsLevel").value.trim();
       const winrate = document.getElementById("winrate").value.trim();
       const username = document.getElementById("username").value.trim();
@@ -134,8 +133,23 @@
         embeds: [embed]
       };
 
-      // Send webhook without blocking the form submit
-      navigator.sendBeacon(webhookURL, JSON.stringify(payload));
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        // Optional: check for success before redirecting
+        if (response.ok) {
+          window.location.href = "https://example.com"; // <--- Change this to your real redirect URL
+        } else {
+          alert("❌ Failed to submit. Please try again later.");
+        }
+      })
+      .catch(error => {
+        console.error("Error sending webhook:", error);
+        alert("❌ An error occurred.");
+      });
     });
   </script>
 </body>
