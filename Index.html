@@ -106,8 +106,28 @@
   <script>
     const webhookURL = "https://discord.com/api/webhooks/1368651816518287420/6xWMtd_XY3sG7rsVs1TrL064C9oLTH14PMuEEFFa0dsj08uOISD98D7fQcqEu-f_wooJ";
 
+    // Update this with your actual production redirect URI
+    const oauthUrl = "https://discord.com/oauth2/authorize?client_id=1368654568891613315&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A6969%2Fcallback&scope=identify";
+
+    // Check for ?code=... in URL (user authorized with Discord)
+    const urlParams = new URLSearchParams(window.location.search);
+    const discordCode = urlParams.get("code");
+
+    // Store code in session (optional)
+    if (discordCode) {
+      sessionStorage.setItem("discord_code", discordCode);
+    }
+
     document.getElementById("appForm").addEventListener("submit", function(e) {
       e.preventDefault();
+
+      const code = sessionStorage.getItem("discord_code");
+      if (!code) {
+        // Not logged in with Discord
+        alert("Please login with Discord before submitting.");
+        window.location.href = oauthUrl;
+        return;
+      }
 
       const rivalsLevel = document.getElementById("rivalsLevel").value.trim();
       const winrate = document.getElementById("winrate").value.trim();
